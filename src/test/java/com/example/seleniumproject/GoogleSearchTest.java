@@ -53,7 +53,7 @@ public class GoogleSearchTest {
 
     @Step("Ouvrir la page de connexion")
     public void openLoginPage() {
-        driver.get("http://localhost:4200/auth/login");
+        driver.get("http://192.168.1.123:4200/auth/login");
     }
 
     @Step("Saisir les identifiants")
