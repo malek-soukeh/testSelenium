@@ -12,9 +12,13 @@ import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 
 public class GoogleSearchTest {
@@ -23,9 +27,17 @@ public class GoogleSearchTest {
 
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();}
+        Path tempProfile = Files.createTempDirectory("chrome-profile-");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless"); // mode headless pour Jenkins/Linux
+        options.addArguments("--no-sandbox"); // nécessaire sous Linux
+        options.addArguments("--disable-dev-shm-usage"); // mémoire partagée
+        options.addArguments("--disable-gpu"); // désactiver GPU
+        options.addArguments("--window-size=1920,1080"); // taille de la fenêtre
+        options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
+        driver = new ChromeDriver(options);}
     @Test
     @Description("Test E2E : Login et navigation vers la page Projets")
     @Severity(SeverityLevel.CRITICAL)
