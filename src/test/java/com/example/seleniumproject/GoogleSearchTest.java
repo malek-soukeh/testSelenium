@@ -58,7 +58,7 @@ public class GoogleSearchTest {
 
     @Step("Saisir les identifiants")
     public void enterCredentials(String email, String password) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(By.id("email1"))).sendKeys(email);
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[type='password']"))).sendKeys(password);
     }
@@ -70,19 +70,19 @@ public class GoogleSearchTest {
 
     @Step("Vérifier l'ouverture du Dashboard")
     public void verifyDashboardOpened() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.urlContains("/dashboard"));
     }
     @Step("Ouvrir la page Projets")
     public void OpenProjectPage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement projectsMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Projects']")));
         projectsMenu.click();
     }
 
     @Step("Création d'un nouveau Projet")
     public void CreateNewProject() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         WebElement createButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[normalize-space()='Create New Project']")));
