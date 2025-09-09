@@ -4,11 +4,11 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import jdk.jfr.Description;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GoogleSearchTest {
 
     private WebDriver driver;
@@ -27,13 +26,16 @@ public class GoogleSearchTest {
         System.setProperty("webdriver.edge.driver", "C:/Users/malek/OneDrive/Documents/testmanagement/msedgedriver.exe");
         driver = new EdgeDriver();}
     @Test
-    @Description("Test de connexion à l'application")
+    @Description("Test E2E : Login et navigation vers la page Projets")
     @Severity(SeverityLevel.CRITICAL)
     public void testLogin() {
         openLoginPage();
         enterCredentials("admin@biat.com", "Admin123!");
         clickLogin();
         verifyDashboardOpened();
+        OpenProjectPage();
+        CreateNewProject();
+
     }
 
     @Step("Ouvrir la page de connexion")
@@ -58,6 +60,48 @@ public class GoogleSearchTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.urlContains("/dashboard"));
     }
+    @Step("Ouvrir la page Projets")
+    public void OpenProjectPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement projectsMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Projects']")));
+        projectsMenu.click();
+    }
+
+    @Step("Création d'un nouveau Projet")
+    public void CreateNewProject() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement createButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[normalize-space()='Create New Project']")));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        createButton.click();
+
+        WebElement projectNameInput = wait.until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("input[placeholder='Enter project name...']")));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        projectNameInput.sendKeys("Projet Selenium Test");
+
+        WebElement projectDescInput = driver.findElement(
+                By.cssSelector("textarea[placeholder^='Describe the project']"));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        projectDescInput.sendKeys("Description du projet pour test E2E Selenium");
+
+        WebElement teamSizeInput = driver.findElement(By.cssSelector("input[type='number']"));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        teamSizeInput.clear();
+        teamSizeInput.sendKeys("5");
+
+        WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(),'Create Project')]"));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        submitButton.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//td[contains(text(),'Projet Selenium Test')]")));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+    }
+
+
+
 }
 
 
