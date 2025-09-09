@@ -1,5 +1,6 @@
 package com.example.seleniumproject;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
@@ -10,7 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,8 +24,8 @@ public class GoogleSearchTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.edge.driver", "C:/Users/malek/OneDrive/Documents/testmanagement/msedgedriver.exe");
-        driver = new EdgeDriver();}
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();}
     @Test
     @Description("Test E2E : Login et navigation vers la page Projets")
     @Severity(SeverityLevel.CRITICAL)
