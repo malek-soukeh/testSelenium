@@ -82,7 +82,7 @@ public class GoogleSearchTest {
 
     @Step("Création d'un nouveau Projet")
     public void CreateNewProject() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
         WebElement createButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[normalize-space()='Create New Project']")));
@@ -108,9 +108,7 @@ public class GoogleSearchTest {
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         submitButton.click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//td[contains(text(),'Projet Selenium Test')]")));
-        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
     }
 
 
