@@ -108,7 +108,9 @@ public class GoogleSearchTest {
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         submitButton.click();
 
-
+      /*  wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//td[contains(text(),'Projet Selenium Test')]")));
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }*/
     }
 
 
