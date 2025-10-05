@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 
-public class GoogleSearchTest {
+public class LoginTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
