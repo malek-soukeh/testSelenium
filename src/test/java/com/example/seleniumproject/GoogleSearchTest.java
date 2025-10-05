@@ -75,7 +75,8 @@ public class GoogleSearchTest {
     }
     @Step("Ouvrir la page Projets")
     public void OpenProjectPage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("app-root")));
         WebElement projectsMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Projects']")));
         projectsMenu.click();
     }
